@@ -24,12 +24,16 @@ namespace TaxiApp.Customer
         private readonly IServiceProvider _serviceProvider;
         private readonly IAuthenticationService _authenticationService;
 
+        private SharedModels.Customer currentCustomer;
+
         public MainWindow(IServiceProvider serviceProvider, IAuthenticationService _authenticationService)
         {
             InitializeComponent();
 
             this._serviceProvider = serviceProvider;
             this._authenticationService = _authenticationService;
+
+            lbl_CurrentUserName.Visibility = Visibility.Hidden;
         }
 
         private void btn_Registrate_Click(object sender, RoutedEventArgs e)
@@ -54,7 +58,26 @@ namespace TaxiApp.Customer
 
         private void btn_Login_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                var loginResult = _authenticationService.Login(txtbox_Login.Text, txtBox_Password.Text);
 
+                if (loginResult != null)
+                {
+                    lbl_CurrentUserName.Content = $"Текущий пользователь: {loginResult.Result.username}";
+                    lbl_CurrentUserName.Visibility = Visibility.Visible;
+
+                    currentCustomer = loginResult.Result;
+
+                    MessageBox.Show($"Вы успешно вошли в систему", "Taxi App");
+                }
+                else
+                    MessageBox.Show($"Ошибка: пользователь с такими данными не найден", "Taxi App");
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Ошибка при поиске пользователя в базе", "Taxi App");
+            }
         }
 
 

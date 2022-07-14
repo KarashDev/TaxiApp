@@ -3,7 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using TaxiApp.Customer.Models;
+using TaxiApp.SharedModels;
+using TaxiApp.Db;
 
 namespace TaxiApp.Customer.Services
 {
@@ -20,54 +21,46 @@ namespace TaxiApp.Customer.Services
         /// <summary>
         /// Register a new user.
         /// </summary>
-        /// <param name="email">The user's email.</param>
-        /// <param name="username">The user's name.</param>
-        /// <param name="password">The user's password.</param>
-        /// <param name="confirmPassword">The user's confirmed password.</param>
-        /// <returns>The result of the registration.</returns>
-        /// <exception cref="Exception">Thrown if the registration fails.</exception>
+        /// <param name="username">Имя заказчика</param>
+        /// <param name="password">Пароль заказчика</param>
+        /// <returns>Результат попытки зарегистрировать нового заказчика</returns>
         Task<RegistrationResult> Register(string username, string password);
 
         /// <summary>
         /// Get an account for a user's credentials.
         /// </summary>
-        /// <param name="username">The user's name.</param>
-        /// <param name="password">The user's password.</param>
-        /// <returns>The account for the user.</returns>
-        /// <exception cref="UserNotFoundException">Thrown if the user does not exist.</exception>
-        /// <exception cref="InvalidPasswordException">Thrown if the password is invalid.</exception>
+        /// <param name="username">Имя</param>
+        /// <param name="password">Пароль</param>
+        /// <returns>Данные заказчика</returns>
         /// <exception cref="Exception">Thrown if the login fails.</exception>
-        Task<Models.Customer> Login(string username, string password);
+        Task<SharedModels.Customer> Login(string username, string password);
     }
 
     public class AuthenticationService : IAuthenticationService
     {
-        private readonly ICustomerService _userService;
+        private readonly ICustomerDbService _customerDbService;
         private readonly IPasswordHasher _passwordHasher;
 
-        public AuthenticationService(ICustomerService userService, IPasswordHasher passwordHasher)
+        public AuthenticationService(ICustomerDbService userService, IPasswordHasher passwordHasher)
         {
-            _userService = userService;
+            _customerDbService = userService;
             _passwordHasher = passwordHasher;
         }
 
-        public async Task<Models.Customer> Login(string username, string password)
+        public async Task<SharedModels.Customer> Login(string username, string password)
         {
-            Models.Customer user = await _userService.GetByUsername(username);
+            SharedModels.Customer customer = await _customerDbService.GetByUsername(username);
 
-            if (user == null)
-            {
-                throw new Exception("");
-            }
+            if (customer == null)
+                return null;
 
-            PasswordVerificationResult passwordResult = _passwordHasher.VerifyHashedPassword(user.PasswordHash, password);
-
+            PasswordVerificationResult passwordResult = _passwordHasher.VerifyHashedPassword(customer.passwordHash, password);
             if (passwordResult != PasswordVerificationResult.Success)
             {
-                throw new Exception("");
+                return null;
             }
-
-            return user;
+            else
+                return customer;
         }
 
         public async Task<RegistrationResult> Register(string username, string password)
@@ -79,7 +72,7 @@ namespace TaxiApp.Customer.Services
                 result = RegistrationResult.EmptyInput;
             }
 
-            Models.Customer usernameAccount = await _userService.GetByUsername(username);
+            SharedModels.Customer usernameAccount = await _customerDbService.GetByUsername(username);
             if (usernameAccount != null)
             {
                 result = RegistrationResult.UsernameAlreadyExists;
@@ -89,14 +82,14 @@ namespace TaxiApp.Customer.Services
             {
                 string hashedPassword = _passwordHasher.HashPassword(password);
 
-                Models.Customer user = new Models.Customer()
+                SharedModels.Customer newCustomer = new SharedModels.Customer()
                 {
-                    Username = username,
-                    PasswordHash = hashedPassword,
-                    DatedJoined = DateTime.Now
+                    username = username,
+                    passwordHash = hashedPassword,
+                    datedJoined = DateTime.Now
                 };
 
-                await _userService.Create(user);
+                await _customerDbService.Create(newCustomer);
             }
 
             return result;

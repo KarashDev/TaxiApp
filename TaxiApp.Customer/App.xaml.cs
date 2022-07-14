@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -9,6 +11,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using TaxiApp.Customer.Services;
+using TaxiApp.SharedModels;
 
 namespace TaxiApp.Customer
 {
@@ -53,7 +56,8 @@ namespace TaxiApp.Customer
             services.AddSingleton<MainWindow>();
 
             services.AddTransient<IAuthenticationService, AuthenticationService>();
-            services.AddTransient<ICustomerService, CustomerService>();
+            services.AddTransient<ICustomerDbService, CustomerService>();
+            services.AddTransient<IPasswordHasher, PasswordHasher>();
 
             //var configuration = new ConfigurationBuilder()
             //.SetBasePath(Directory.GetCurrentDirectory())
@@ -69,6 +73,24 @@ namespace TaxiApp.Customer
             //{
             //    client.BaseAddress = new Uri(baseURI);
             //}).ConfigurePrimaryHttpMessageHandler(() => new HttpClientHandler { DefaultProxyCredentials = CredentialCache.DefaultCredentials });
+        }
+
+       
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            using (Db.AppContext db = new Db.AppContext())
+            {
+                db.Database.EnsureDeleted();
+                db.Database.EnsureCreated();
+
+                db.Database.Migrate();
+
+                SharedModels.Customer customer = new SharedModels.Customer() { id = 1, username = "Ivan K.", passwordHash = "13151" };
+                db.Customers.Add(customer);
+                db.SaveChanges();
+            }
+
+            base.OnStartup(e);
         }
     }
 }

@@ -11,8 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TaxiApp.Customer\TaxiApp.Customer.csproj" />
     <ProjectReference Include="..\TaxiApp.Db\TaxiApp.Db.csproj" />
+    <ProjectReference Include="..\TaxiApp.SharedModels\TaxiApp.SharedModels.csproj" />
   </ItemGroup>
 
 </Project>

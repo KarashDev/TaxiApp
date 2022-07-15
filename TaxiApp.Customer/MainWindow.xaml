@@ -6,11 +6,15 @@
         xmlns:local="clr-namespace:TaxiApp.Customer"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-     <Grid>
-          <TextBox x:Name="txtbox_Login"  HorizontalAlignment="Center" Margin="0,139,0,0" TextWrapping="Wrap" Text="Имя/логин" VerticalAlignment="Top" Width="168" Height="33"/>
-          <TextBox x:Name="txtBox_Password" HorizontalAlignment="Center" Margin="0,184,0,0" TextWrapping="Wrap" Text="Пароль" VerticalAlignment="Top" Width="168" Height="33"/>
-          <Button x:Name="btn_Registrate" Content="Зарегистрировать" HorizontalAlignment="Left" Margin="262,238,0,0" VerticalAlignment="Top" Click="btn_Registrate_Click" Height="38" Width="129"/>
-          <Button x:Name="btn_Login" Content="Войти" HorizontalAlignment="Left" Margin="420,241,0,0" VerticalAlignment="Top" Click="btn_Login_Click" Height="35" Width="129"/>
-          <Label x:Name="lbl_CurrentUserName" Content="Заказчик: " HorizontalAlignment="Left" Margin="279,86,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
-     </Grid>
+    <Grid>
+        <TextBox x:Name="txtbox_Login"  HorizontalAlignment="Center" Margin="0,139,0,0" TextWrapping="Wrap" Text="Имя/логин" VerticalAlignment="Top" Width="168" Height="33"/>
+        <TextBox x:Name="txtBox_Password" HorizontalAlignment="Center" Margin="0,184,0,0" TextWrapping="Wrap" Text="Пароль" VerticalAlignment="Top" Width="168" Height="33"/>
+        <Button x:Name="btn_Registrate" Content="Зарегистрировать" HorizontalAlignment="Left" Margin="260,241,0,0" VerticalAlignment="Top" Click="btn_Registrate_Click" Height="35" Width="129"/>
+        <Button x:Name="btn_Login" Content="Войти" HorizontalAlignment="Left" Margin="420,241,0,0" VerticalAlignment="Top" Click="btn_Login_Click" Height="35" Width="129"/>
+        <Label x:Name="lbl_CurrentUserName" Content="Заказчик: " HorizontalAlignment="Left" Margin="279,86,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
+        <Button x:Name="btn_CallTaxi" Content="Вызвать такси" HorizontalAlignment="Left" Margin="340,352,0,0" VerticalAlignment="Top" Height="35" Width="128" Click="btn_CallTaxi_Click"/>
+        <ComboBox x:Name="cmb_Coordinates" HorizontalAlignment="Left" Margin="344,317,0,0" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="btn_ConnectSignalR" Content="Включить SignalR" HorizontalAlignment="Center" Margin="0,28,0,0" VerticalAlignment="Top" Height="35" Width="129" Click="btn_ConnectSignalR_Click"/>
+        <Label x:Name="lbl_ConnectionId" Content="Label" HorizontalAlignment="Left" Margin="144,156,0,0" VerticalAlignment="Top"/>
+    </Grid>
 </Window>

@@ -6,7 +6,7 @@ using TaxiApp.SharedModels;
 using TaxiApp.Db;
 using System.Linq;
 
-namespace TaxiApp.Customer.Services
+namespace TaxiApp.Driver.Services
 {
     public interface IDriverDbService /*: IDataService<Account>*/
     {

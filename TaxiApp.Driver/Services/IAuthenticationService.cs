@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using TaxiApp.SharedModels;
 using TaxiApp.Db;
 
-namespace TaxiApp.Customer.Services
+namespace TaxiApp.Driver.Services
 {
     public enum RegistrationResult
     {

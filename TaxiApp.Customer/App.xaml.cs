@@ -58,6 +58,7 @@ namespace TaxiApp.Customer
             services.AddTransient<IAuthenticationService, AuthenticationService>();
             services.AddTransient<ICustomerDbService, CustomerService>();
             services.AddTransient<IPasswordHasher, PasswordHasher>();
+            services.AddTransient<ITaxiOrderSender, TaxiOrderSender>();
 
             //var configuration = new ConfigurationBuilder()
             //.SetBasePath(Directory.GetCurrentDirectory())

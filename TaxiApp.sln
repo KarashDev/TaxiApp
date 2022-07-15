@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaxiApp.Driver", "TaxiApp.D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaxiApp.Db", "TaxiApp.Db\TaxiApp.Db.csproj", "{A9A8CC66-BC35-469F-9461-01C89E5719A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaxiApp.SharedModels", "TaxiApp.SharedModels\TaxiApp.SharedModels.csproj", "{BA561DE3-8BC5-4490-B08C-BF511D968917}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaxiApp.SharedModels", "TaxiApp.SharedModels\TaxiApp.SharedModels.csproj", "{BA561DE3-8BC5-4490-B08C-BF511D968917}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaxiApp.SignalR", "TaxiApp.SignalR\TaxiApp.SignalR.csproj", "{4937EC81-6E6F-437C-9B28-EA9EE368F300}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{BA561DE3-8BC5-4490-B08C-BF511D968917}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA561DE3-8BC5-4490-B08C-BF511D968917}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA561DE3-8BC5-4490-B08C-BF511D968917}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4937EC81-6E6F-437C-9B28-EA9EE368F300}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4937EC81-6E6F-437C-9B28-EA9EE368F300}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4937EC81-6E6F-437C-9B28-EA9EE368F300}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4937EC81-6E6F-437C-9B28-EA9EE368F300}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

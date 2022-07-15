@@ -10,5 +10,7 @@ namespace TaxiApp.SharedModels
         public string username { get; set; }
         public string passwordHash { get; set; }
         public DateTime datedJoined { get; set; }
+
+        public string currentCoordinate { get; set; }
     }
 }

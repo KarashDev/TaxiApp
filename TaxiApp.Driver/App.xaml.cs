@@ -10,7 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using TaxiApp.Customer.Services;
+using TaxiApp.Driver.Services;
 using TaxiApp.SharedModels;
 
 
@@ -59,6 +59,7 @@ namespace TaxiApp.Driver
             services.AddTransient<IAuthenticationService, AuthenticationService>();
             services.AddTransient<IDriverDbService, DriverDbService>();
             services.AddTransient<IPasswordHasher, PasswordHasher>();
+            services.AddTransient<ITaxiAnswerSender, TaxiAnswerSender>();
 
             //var configuration = new ConfigurationBuilder()
             //.SetBasePath(Directory.GetCurrentDirectory())

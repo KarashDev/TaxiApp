@@ -48,15 +48,14 @@ namespace TaxiApp.SignalR
 
             app.UseAuthorization();
 
-            //app.UseEndpoints(endpoints =>
-            //{
-            //    endpoints.MapRazorPages();
-            //});
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapRazorPages();
+            });
 
             app.UseEndpoints(endpoints =>
             {
-                //чтобы обратиться к хабу, строка запроса должна иметь вид типа "http://localhost:7019/chat"
-                endpoints.MapHub<TaxiHub>("/chat");
+                endpoints.MapHub<TaxiHub>("/taxi");
             });
         }
     }

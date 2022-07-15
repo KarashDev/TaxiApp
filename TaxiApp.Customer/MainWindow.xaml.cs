@@ -27,17 +27,18 @@ namespace TaxiApp.Customer
 
         private readonly IServiceProvider _serviceProvider;
         private readonly IAuthenticationService _authenticationService;
+        private readonly ITaxiOrderService _taxiOrderSender;
 
         private SharedModels.Customer currentCustomer;
 
-        public MainWindow(IServiceProvider serviceProvider, IAuthenticationService _authenticationService)
+        public MainWindow(IServiceProvider serviceProvider, IAuthenticationService _authenticationService, ITaxiOrderService taxiOrderSender)
         {
             InitializeComponent();
 
-            connection = new HubConnectionBuilder()
-                .WithUrl("https://localhost:44348/chat")
-                .Build();
 
+            connection = new HubConnectionBuilder()
+                .WithUrl("https://localhost:44348/taxi")
+                .Build();
             connection.Closed += async (error) =>
             {
                 await Task.Delay(new Random().Next(0, 5) * 1000);
@@ -45,9 +46,9 @@ namespace TaxiApp.Customer
             };
 
 
-
             this._serviceProvider = serviceProvider;
             this._authenticationService = _authenticationService;
+            this._taxiOrderSender = taxiOrderSender;
 
             cmb_Coordinates.ItemsSource = Enum.GetValues(typeof(Coordinates.CustomerCoordinates));
             cmb_Coordinates.SelectedIndex = 0;
@@ -55,45 +56,36 @@ namespace TaxiApp.Customer
             lbl_CurrentUserName.Visibility = Visibility.Hidden;
             cmb_Coordinates.Visibility = Visibility.Hidden;
             btn_CallTaxi.Visibility = Visibility.Hidden;
+            lbl_taxiHasArrived.Visibility = Visibility.Hidden;
+
+            btn_Registrate.IsEnabled = false;
+            btn_Login.IsEnabled = false;
         }
 
         private async void btn_ConnectSignalR_Click(object sender, RoutedEventArgs e)
         {
-            //connection.On<string, string>("ReceiveMessage", (user, message) =>
-            //{
-            //    this.Dispatcher.Invoke(() =>
-            //    {
-            //        var newMessage = $"{user}: {message}";
-            //        //messagesList.Items.Add(newMessage);
-            //        lbl_ConnectionId.Content = user;
-            //    });
-            //});
+            btn_Registrate.IsEnabled = true;
+            btn_Login.IsEnabled = true;
 
-            connection.On<string>("Connected",
-                                   (connectionid) =>
-                                   {
-                                       //MessageBox.Show(connectionid);
-                                       lbl_ConnectionId.Content = connectionid;
-                                   });
-
-            connection.On<SharedModels.Customer>("NewCustomer",
-                                  (customer) =>
-                                  {
-                                      //MessageBox.Show(connectionid);
-                                      lbl_ConnectionId.Content = customer.username;
-                                  });
+            connection.On<SharedModels.Driver>("AcceptOrder",
+                                 (driver) =>
+                                 {
+                                      //Проверка числится ли текущий заказчик на входящем водителе
+                                     if (driver.customer.username == currentCustomer.username 
+                                     && driver.customer.passwordHash == currentCustomer.passwordHash)
+                                     {
+                                         lbl_taxiHasArrived.Visibility = Visibility.Visible;
+                                     }
+                                 });
 
             try
             {
                 await connection.StartAsync();
-                //messagesList.Items.Add("Connection started");
-                //connectButton.IsEnabled = false;
-                //sendButton.IsEnabled = true;
+    
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
-                //messagesList.Items.Add(ex.Message);
+                MessageBox.Show("Ошибка подключения к SignalR", "Taxi App");
             }
         }
 
@@ -110,7 +102,6 @@ namespace TaxiApp.Customer
                     MessageBox.Show("Оба поля должны быть заполнены", "Taxi App");
                 else if (registrationResult.Result == RegistrationResult.UsernameAlreadyExists)
                     MessageBox.Show("Пользователь с указанными данными уже существует", "Taxi App");
-
             }
             catch (Exception)
             {
@@ -151,19 +142,12 @@ namespace TaxiApp.Customer
 
             try
             {
-                await connection.InvokeAsync("NewCustomer", currentCustomer);
+                await _taxiOrderSender.SendOrder(connection, "NewCustomer", currentCustomer);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                //messagesList.Items.Add(ex.Message);
+                MessageBox.Show("Ошибка при отправке заказа на сервер", "Taxi App");
             }
-
-
-
-
-
         }
-
-        
     }
 }

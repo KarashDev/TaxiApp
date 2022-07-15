@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TaxiApp.SharedModels
 {
-    public class Customer /*: DomainObject*/
+    public class Customer
     {
         public int id { get; set; }
         public string username { get; set; }

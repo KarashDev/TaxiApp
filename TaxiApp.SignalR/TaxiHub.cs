@@ -6,8 +6,16 @@ namespace TaxiApp.SignalR
 {
     public class TaxiHub : Hub
     {
-        //Первый параметр метода SendAsync() указывает на метод, который будет получать ответ от сервера,
-        //а второй параметр представляет набор значений, которые посылаются в ответе клиенту. 
+        public async Task NewCustomer(Customer customer)
+        {
+            await this.Clients.All.SendAsync("NewCustomer", customer);
+        }
+
+        public async Task AcceptOrder(Driver driver)
+        {
+            await this.Clients.All.SendAsync("AcceptOrder", driver);
+        }
+
         public async Task Send(string message)
         {
             await this.Clients.All.SendAsync("Connected", Context.ConnectionId );
@@ -17,11 +25,5 @@ namespace TaxiApp.SignalR
         {
             await this.Clients.All.SendAsync("Connected", Context.ConnectionId);
         }
-
-        public async Task NewCustomer(Customer customer)
-        {
-            await this.Clients.All.SendAsync("NewCustomer", customer);
-        }
-
     }
 }

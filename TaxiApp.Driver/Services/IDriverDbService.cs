@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace TaxiApp.Driver.Services
 {
-    public interface IDriverDbService /*: IDataService<Account>*/
+    public interface IDriverDbService
     {
         Task Create(SharedModels.Driver driver);
         Task<SharedModels.Driver> GetByUsername(string driverName);
@@ -26,8 +26,6 @@ namespace TaxiApp.Driver.Services
 
                 return Task.CompletedTask;
             }
-
-            //throw new NotImplementedException();
         }
 
         public Task<SharedModels.Driver> GetByUsername(string driverName)
@@ -39,8 +37,5 @@ namespace TaxiApp.Driver.Services
                 return Task.FromResult<SharedModels.Driver>(matchedDriver);
             }
         }
-
-        
     }
-
 }

@@ -18,21 +18,7 @@ namespace TaxiApp.Customer.Services
 
     public interface IAuthenticationService
     {
-        /// <summary>
-        /// Register a new user.
-        /// </summary>
-        /// <param name="username">Имя заказчика</param>
-        /// <param name="password">Пароль заказчика</param>
-        /// <returns>Результат попытки зарегистрировать нового заказчика</returns>
         Task<RegistrationResult> Register(string username, string password);
-
-        /// <summary>
-        /// Get an account for a user's credentials.
-        /// </summary>
-        /// <param name="username">Имя</param>
-        /// <param name="password">Пароль</param>
-        /// <returns>Данные заказчика</returns>
-        /// <exception cref="Exception">Thrown if the login fails.</exception>
         Task<SharedModels.Customer> Login(string username, string password);
     }
 
@@ -94,13 +80,5 @@ namespace TaxiApp.Customer.Services
 
             return result;
         }
-
-
-
-
     }
-
-
-
-
 }

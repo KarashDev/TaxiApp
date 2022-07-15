@@ -8,8 +8,7 @@ using System.Linq;
 
 namespace TaxiApp.Customer.Services
 {
-
-    public interface ICustomerDbService /*: IDataService<Account>*/
+    public interface ICustomerDbService
     {
         Task Create(SharedModels.Customer customer);
         Task<SharedModels.Customer> GetByUsername(string customerName);
@@ -27,8 +26,6 @@ namespace TaxiApp.Customer.Services
 
                 return Task.CompletedTask;
             }
-
-            //throw new NotImplementedException();
         }
 
         public Task<SharedModels.Customer> GetByUsername(string customerName)
@@ -40,8 +37,5 @@ namespace TaxiApp.Customer.Services
                 return Task.FromResult<SharedModels.Customer>(matchedCustomer);
             }
         }
-
-        
     }
-
 }

@@ -5,16 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TaxiApp.Driver"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <TextBox x:Name="txtbox_Login"  HorizontalAlignment="Center" Margin="0,139,0,0" TextWrapping="Wrap" Text="Имя/логин" VerticalAlignment="Top" Width="168" Height="33"/>
-        <TextBox x:Name="txtBox_Password" HorizontalAlignment="Center" Margin="0,184,0,0" TextWrapping="Wrap" Text="Пароль" VerticalAlignment="Top" Width="168" Height="33"/>
-        <Button x:Name="btn_Registrate" Content="Зарегистрировать" HorizontalAlignment="Left" Margin="260,241,0,0" VerticalAlignment="Top" Click="btn_Registrate_Click" Height="35" Width="129"/>
-        <Button x:Name="btn_Login" Content="Войти" HorizontalAlignment="Left" Margin="420,241,0,0" VerticalAlignment="Top" Click="btn_Login_Click" Height="35" Width="129"/>
-        <Label x:Name="lbl_CurrentUserName" Content="Водитель: " HorizontalAlignment="Left" Margin="279,86,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
-        <Button x:Name="btn_AcceptOrder" Content="Принять заказ" HorizontalAlignment="Center" Margin="0,348,0,0" VerticalAlignment="Top" Height="35" Width="128" Click="btn_AcceptOrder_Click"/>
-        <Label x:Name="lbl_NewOrder" Content="Пришел новый заказ: " HorizontalAlignment="Left" Margin="279,312,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
-        <Label x:Name="lbl_TimerNotif" Content="Заказчик будет уведомлен через: " HorizontalAlignment="Left" Margin="279,388,0,0" VerticalAlignment="Top" FontSize="12" FontWeight="Bold"/>
-        <Button x:Name="btn_ConnectSignalR" Content="Принять заказ" HorizontalAlignment="Center" Margin="0,27,0,0" VerticalAlignment="Top" Height="35" Width="128" Click="btn_ConnectSignalR_Click"/>
-    </Grid>
+        Title="Клиент для водителя" Height="450" Width="800">
+     <Grid>
+          <TextBox x:Name="txtbox_Login"  HorizontalAlignment="Center" Margin="0,139,0,0" TextWrapping="Wrap" Text="Имя/логин" VerticalAlignment="Top" Width="168" Height="33"/>
+          <TextBox x:Name="txtBox_Password" HorizontalAlignment="Center" Margin="0,184,0,0" TextWrapping="Wrap" Text="Пароль" VerticalAlignment="Top" Width="168" Height="33"/>
+          <Button x:Name="btn_Registrate" Content="Зарегистрировать" HorizontalAlignment="Left" Margin="260,241,0,0" VerticalAlignment="Top" Click="btn_Registrate_Click" Height="35" Width="129"/>
+          <Button x:Name="btn_Login" Content="Войти" HorizontalAlignment="Left" Margin="420,241,0,0" VerticalAlignment="Top" Click="btn_Login_Click" Height="35" Width="129"/>
+          <Label x:Name="lbl_CurrentUserName" Content="Водитель: " HorizontalAlignment="Left" Margin="279,86,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
+          <Button x:Name="btn_AcceptOrder" Content="Принять заказ" HorizontalAlignment="Center" Margin="0,348,0,0" VerticalAlignment="Top" Height="35" Width="128" Click="btn_AcceptOrder_Click"/>
+          <Label x:Name="lbl_NewOrder" Content="Пришел новый заказ: " HorizontalAlignment="Left" Margin="279,312,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
+          <Label x:Name="lbl_TimerNotif" Content="Успешно. Заказчик будет уведомлен через 5 минут" HorizontalAlignment="Left" Margin="279,388,0,0" VerticalAlignment="Top" FontSize="12" FontWeight="Bold"/>
+          <Button x:Name="btn_ConnectSignalR" Content="Включить SignalR" HorizontalAlignment="Center" Margin="0,27,0,0" VerticalAlignment="Top" Height="35" Width="128" Click="btn_ConnectSignalR_Click"/>
+          <Label x:Name="lbl_title" Content="КЛИЕНТ ДЛЯ ВОДИТЕЛЯ" HorizontalAlignment="Left" Margin="29,22,0,0" VerticalAlignment="Top" FontSize="16" FontWeight="Bold"/>
+     </Grid>
 </Window>
